@@ -112,8 +112,8 @@
 }
 
 @theme inline {
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Jost", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
   --color-burgundy-deep: var(--burgundy-deep);
   --color-on-dark-muted: var(--on-dark-muted);
 }
@@ -125,7 +125,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 400;
   }
   h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; }
 }

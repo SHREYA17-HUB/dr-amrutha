@@ -37,11 +37,11 @@ function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; 
 
 function Heading({ n, eyebrow, title, dark = false }: { n: string; eyebrow: string; title: ReactNode; dark?: boolean }) {
   return (
-    <Reveal className="mb-14 max-w-3xl">
+    <Reveal className="mb-10 max-w-3xl">
       <div className="flex items-center gap-4">
         <span className="eyebrow">{n}</span><span className="rule-rose w-12" /><span className="eyebrow">{eyebrow}</span>
       </div>
-      <h2 className={`mt-6 text-4xl leading-[1.05] md:text-6xl ${dark ? "text-primary-foreground" : "text-primary"}`}>{title}</h2>
+      <h2 className={`mt-4 text-3xl leading-tight md:text-5xl ${dark ? "text-primary-foreground" : "text-primary"}`}>{title}</h2>
     </Reveal>
   );
 }
@@ -102,11 +102,11 @@ function Hero() {
   const words = ["Dedicated", "to", "Care."];
   const words2 = ["Driven", "by", "Excellence."];
   return (
-    <section id="top" className="relative overflow-hidden pt-32 pb-20 md:pt-40">
+    <section id="top" className="relative overflow-hidden pt-28 pb-14 md:pt-32">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="eyebrow">Dr. Amruta Jagadale, MBBS</motion.p>
-          <h1 className="mt-6 text-5xl leading-[0.98] text-primary sm:text-6xl md:text-7xl xl:text-8xl">
+          <h1 className="mt-6 text-5xl leading-[0.98] text-primary sm:text-6xl md:text-7xl xl:text-[5.5rem]">
             {[words, words2].map((line, li) => (
               <span key={li} className={`block ${li ? "italic text-rose-gradient" : ""}`}>
                 {line.map((w, i) => (
@@ -120,7 +120,7 @@ function Hero() {
           </h1>
           <Reveal delay={0.9}>
             <p className="mt-8 text-sm uppercase tracking-[0.18em] text-muted-foreground">Medical Doctor · Healthcare Entrepreneur · Women's Health & Lifestyle Coach</p>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground/85">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/85 md:text-[17px]">
               Helping women build healthier lives, one habit at a time. With approximately 19 years in medicine, I help women make informed health decisions and build sustainable habits — and support families through home healthcare, elder care and palliative care.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
@@ -140,15 +140,15 @@ function Hero() {
 
 function About() {
   return (
-    <section id="about" className="bg-card py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12">
+    <section id="about" className="bg-card py-14 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12">
         <Reveal className="lg:col-span-5">
           <img src={still} alt="A calm wellness setting with stethoscope, tea and fresh fruit" loading="lazy" className="aspect-[4/5] w-full object-cover" />
           <p className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">Vijayapura → Bengaluru</p>
         </Reveal>
         <div className="lg:col-span-7">
           <Heading n="01" eyebrow="About Me" title={<>Clear information.<br /><em className="text-accent">Compassionate</em> guidance.</>} />
-          <div className="space-y-6 text-lg leading-relaxed text-foreground/85">
+          <div className="space-y-6 text-base leading-relaxed text-foreground/85 md:text-[17px]">
             {about.map((p, i) => <Reveal key={i} delay={i * 0.05}><p>{p}</p></Reveal>)}
           </div>
           <Reveal>
@@ -170,7 +170,7 @@ function Highlights() {
     { n: 13, s: "", l: "Areas of expertise" },
   ];
   return (
-    <section className="bg-primary py-20 text-primary-foreground">
+    <section className="bg-primary py-14 text-primary-foreground">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-12 px-6 md:grid-cols-4">
         {stats.map((s, i) => (
           <Reveal key={s.l} delay={i * 0.1} className="border-l border-accent/40 pl-6">
@@ -185,13 +185,13 @@ function Highlights() {
 
 function Expertise() {
   return (
-    <section id="expertise" className="py-24 md:py-32">
+    <section id="expertise" className="py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
         <Heading n="02" eyebrow="Skills & Expertise" title={<>Medicine, wellness and <em className="text-accent">community care</em>.</>} />
         <div className="grid border-t border-border md:grid-cols-2 lg:grid-cols-3">
           {expertise.map((e, i) => (
             <Reveal key={e.t} delay={(i % 3) * 0.08}>
-              <div className="group relative h-full border-b border-border p-8 transition-colors duration-500 hover:bg-primary md:border-r">
+              <div className="group relative h-full border-b border-border p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:bg-primary md:border-r">
                 <span className="font-display text-sm text-accent">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="mt-6 text-2xl leading-tight text-primary transition-colors group-hover:text-primary-foreground">{e.t}</h3>
                 <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground transition-colors group-hover:text-on-dark-muted">{e.d}</p>
@@ -207,8 +207,8 @@ function Expertise() {
 
 function Journey() {
   return (
-    <section id="journey" className="bg-card py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12">
+    <section id="journey" className="bg-card py-14 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Heading n="03" eyebrow="Experience" title={<>Professional <em className="text-accent">journey</em>.</>} />
           <Reveal>
@@ -222,7 +222,7 @@ function Journey() {
         <div className="relative lg:col-span-8">
           <motion.div className="absolute left-3 top-0 w-px origin-top bg-accent/60" style={{ height: "100%" }}
             initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }} transition={{ duration: 1.6, ease }} />
-          <div className="space-y-12">
+          <div className="space-y-8">
             {experience.map((x, i) => (
               <Reveal key={x.role} delay={i * 0.08} className="relative pl-14">
                 <span className="absolute left-0 top-2 h-6 w-6 rounded-full border border-accent bg-background" />
@@ -241,13 +241,13 @@ function Journey() {
 
 function Projects() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
         <Heading n="04" eyebrow="Projects & Portfolio" title={<>Initiatives that make care <em className="text-accent">accessible</em>.</>} />
         <div className="divide-y divide-border border-y border-border">
           {projects.map((p, i) => (
             <Reveal key={p.name}>
-              <div className="group grid gap-4 py-10 transition-all md:grid-cols-12 md:items-baseline">
+              <div className="group grid gap-4 py-7 transition-all md:grid-cols-12 md:items-baseline">
                 <span className="font-display text-xl text-accent md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="text-3xl text-primary transition-transform duration-500 group-hover:translate-x-2 md:col-span-4 md:text-4xl">{p.name}</h3>
                 <div className="md:col-span-7">
@@ -268,7 +268,7 @@ function Services() {
   const Col = ({ title, sub, items }: { title: string; sub: string; items: { t: string; d: string }[] }) => (
     <div>
       <Reveal><p className="eyebrow">{sub}</p><h3 className="mt-3 text-4xl text-primary-foreground">{title}</h3></Reveal>
-      <div className="mt-10 space-y-8">
+      <div className="mt-6 space-y-6">
         {items.map((s, i) => (
           <Reveal key={s.t} delay={i * 0.05} className="border-t border-accent/30 pt-6">
             <h4 className="text-2xl text-accent">{s.t}</h4>
@@ -279,10 +279,10 @@ function Services() {
     </div>
   );
   return (
-    <section id="services" className="bg-primary py-24 md:py-32">
+    <section id="services" className="bg-primary py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
         <Heading dark n="05" eyebrow="Services Offered" title={<>Personal coaching & <em className="text-accent">care at home</em>.</>} />
-        <div className="grid gap-16 lg:grid-cols-2">
+        <div className="grid gap-10 lg:grid-cols-2">
           <Col sub="A · Heal with Dr. Amruta" title="Personal Health Coaching" items={coaching} />
           <Col sub="B · QuickAid Healthcare" title="Home Healthcare Services" items={homecare} />
         </div>
@@ -293,18 +293,18 @@ function Services() {
 
 function Recognition() {
   return (
-    <section id="recognition" className="py-24 md:py-32">
+    <section id="recognition" className="py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
         <Heading n="06" eyebrow="Achievements & Affiliations" title={<>Recognition through <em className="text-accent">service</em>.</>} />
         <div className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
           {achievements.map((a, i) => (
-            <Reveal key={a.t} delay={(i % 3) * 0.08} className="bg-background p-10">
+            <Reveal key={a.t} delay={(i % 3) * 0.08} className="bg-background p-8 transition-all duration-500 hover:bg-card">
               <span className="font-display text-5xl italic text-accent/70">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="mt-6 text-2xl text-primary">{a.t}</h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">{a.d}</p>
             </Reveal>
           ))}
-          <Reveal className="bg-card p-10">
+          <Reveal className="bg-card p-8">
             <p className="eyebrow">Affiliations</p>
             {affiliations.map((a) => (
               <div key={a.t} className="mt-6 border-t border-accent/40 pt-4">
@@ -321,7 +321,7 @@ function Recognition() {
 
 function Approach() {
   return (
-    <section className="relative overflow-hidden bg-burgundy-deep py-24 md:py-36">
+    <section className="relative overflow-hidden bg-burgundy-deep py-16 md:py-24">
       <img src={still} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-15" />
       <div className="relative mx-auto max-w-7xl px-6">
         <Heading dark n="07" eyebrow="My Approach to Care" title={<>Good healthcare begins with <em className="text-accent">understanding people</em>.</>} />
@@ -347,7 +347,7 @@ function Gallery() {
   const [active, setActive] = useState<number | null>(null);
   const current = active === null ? null : imgs[active];
   return (
-    <section className="bg-card py-24 md:py-32">
+    <section className="bg-card py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
         <Heading n="08" eyebrow="Gallery" title={<>Moments & <em className="text-accent">milestones</em>.</>} />
         <div className="grid auto-rows-[220px] gap-4 md:grid-cols-3">
@@ -383,8 +383,8 @@ function Contact() {
   };
   const field = "w-full border-b border-accent/40 bg-transparent py-3 text-primary-foreground placeholder:text-on-dark-muted/70 focus:border-accent focus:outline-none";
   return (
-    <section id="contact" className="bg-primary py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2">
+    <section id="contact" className="bg-primary py-14 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2">
         <div>
           <Heading dark n="09" eyebrow="Let's Connect" title={<>Your wellbeing deserves <em className="text-accent">thoughtful guidance</em>.</>} />
           <Reveal>
