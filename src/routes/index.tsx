@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useInView, animate, AnimatePresence, MotionConfig, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode, type FormEvent } from "react";
-import { ArrowUpRight, HeartPulse, Leaf, Stethoscope } from "lucide-react";
+import { ArrowUpRight, HeartPulse, Leaf, Stethoscope, HeartHandshake, Activity, Apple, Baby, House, Users, BookOpen, ShieldCheck, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroVisual from "@/assets/medical-hero.png.asset.json";
 import wellnessVisual from "@/assets/medical-wellness.png.asset.json";
@@ -177,20 +177,34 @@ function Highlights() {
   );
 }
 
+function AnimatedCareIcon({ icon: Icon, delay = 0, dark = false }: { icon: LucideIcon; delay?: number; dark?: boolean }) {
+  const reduced = useReducedMotion();
+  return (
+    <motion.span aria-hidden="true" className={`care-icon ${dark ? "care-icon-dark" : ""}`}
+      initial={false} whileInView={reduced ? {} : { y: [0, -4, 0], rotate: [0, -5, 0] }}
+      viewport={{ amount: 0.8 }} transition={{ duration: 4, repeat: Infinity, delay, ease: "easeInOut" }}>
+      <Icon className="h-6 w-6" strokeWidth={1.5} />
+    </motion.span>
+  );
+}
+
+const expertiseIcons = [HeartPulse, Activity, Leaf, HeartPulse, Baby, Apple, House, Users, HeartHandshake, ShieldCheck, Stethoscope, BookOpen, HeartHandshake];
+const projectIcons = [Leaf, Stethoscope, HeartHandshake, Apple, Users];
+
 function Expertise() {
   return (
     <section id="expertise" className="py-9 md:py-12">
       <div className="mx-auto max-w-7xl px-6">
         <Heading n="02" eyebrow="Skills & Expertise" title={<>Medicine, wellness and <em className="text-accent">community care</em>.</>} />
-        <div className="grid border-t border-border md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {expertise.map((e, i) => (
             <Reveal key={e.t} delay={(i % 3) * 0.08}>
-              <div className="group relative h-full border-b border-border p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:bg-primary md:border-r">
-                <span className="font-display text-sm text-accent">{String(i + 1).padStart(2, "0")}</span>
+              <article className="expertise-tile group relative h-full overflow-hidden rounded-md border border-border bg-card/50 p-5 transition-all duration-500 hover:-translate-y-1 hover:bg-primary">
+                <div className="flex items-center justify-between"><AnimatedCareIcon icon={expertiseIcons[i] ?? HeartPulse} delay={(i % 3) * 0.5} /><span className="font-display text-sm text-accent">{String(i + 1).padStart(2, "0")}</span></div>
                 <h3 className="mt-4 text-2xl leading-tight text-primary transition-colors group-hover:text-primary-foreground">{e.t}</h3>
                 <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground transition-colors group-hover:text-on-dark-muted">{e.d}</p>
-                <span className="rule-rose absolute bottom-0 left-0 w-0 transition-all duration-700 group-hover:w-full" />
-              </div>
+                <span aria-hidden="true" className="tile-trace" />
+              </article>
             </Reveal>
           ))}
         </div>
@@ -235,21 +249,22 @@ function Journey() {
 
 function Projects() {
   return (
-    <section className="py-9 md:py-12">
+    <section id="projects" className="py-9 md:py-12">
       <div className="mx-auto max-w-7xl px-6">
         <Heading n="04" eyebrow="Projects & Portfolio" title={<>Initiatives that make care <em className="text-accent">accessible</em>.</>} />
         <div className="divide-y divide-border border-y border-border">
           {projects.map((p, i) => (
-            <Reveal key={p.name}>
-              <div className="group grid gap-4 py-5 transition-all md:grid-cols-12 md:items-baseline">
-                <span className="font-display text-xl text-accent md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="text-3xl text-primary transition-transform duration-500 group-hover:translate-x-2 md:col-span-4 md:text-4xl">{p.name}</h3>
+            <Reveal key={p.name} delay={(i % 3) * 0.1}>
+              <article className="project-row group relative grid gap-4 px-3 py-6 transition-colors duration-500 hover:bg-card md:grid-cols-12 md:items-start">
+                <div className="flex items-center gap-3 md:col-span-1"><AnimatedCareIcon icon={projectIcons[i] ?? HeartHandshake} delay={i * 0.3} /><span className="font-display text-sm text-accent md:hidden">{String(i + 1).padStart(2, "0")}</span></div>
+                <h3 className="text-3xl text-primary transition-transform duration-500 group-hover:translate-x-1 md:col-span-4">{p.name}</h3>
                 <div className="md:col-span-7">
                   <p className="eyebrow">{p.tag}</p>
                   <p className="mt-3 leading-relaxed text-foreground/80">{p.text}</p>
                   {p.link && <a href={p.link} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sm text-accent underline-offset-4 hover:underline">www.quickaidhealthcare.com ↗</a>}
                 </div>
-              </div>
+                <span aria-hidden="true" className="project-sweep" />
+              </article>
             </Reveal>
           ))}
         </div>
@@ -261,12 +276,15 @@ function Projects() {
 function Services() {
   const Col = ({ title, sub, items }: { title: string; sub: string; items: { t: string; d: string }[] }) => (
     <div>
-      <Reveal><p className="eyebrow">{sub}</p><h3 className="mt-3 text-4xl text-primary-foreground">{title}</h3></Reveal>
+      <Reveal><div className="flex items-center gap-3"><AnimatedCareIcon dark icon={title === "Personal Health Coaching" ? HeartPulse : House} /><p className="eyebrow">{sub}</p></div><h3 className="mt-3 text-3xl text-primary-foreground">{title}</h3></Reveal>
       <div className="mt-5 space-y-4">
         {items.map((s, i) => (
-          <Reveal key={s.t} delay={i * 0.05} className="border-t border-accent/30 pt-4">
-            <h4 className="text-2xl text-accent">{s.t}</h4>
-            <p className="mt-2 leading-relaxed text-on-dark-muted">{s.d}</p>
+          <Reveal key={s.t} delay={(i % 3) * 0.08} className="service-row group relative border-t border-accent/30 py-4">
+            <div className="flex items-start gap-4">
+              <span aria-hidden="true" className="service-marker mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent/40 text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
+              <div className="min-w-0"><h4 className="text-2xl text-accent transition-transform duration-500 group-hover:translate-x-1">{s.t}</h4>
+              <p className="mt-2 leading-relaxed text-on-dark-muted">{s.d}</p></div>
+            </div>
           </Reveal>
         ))}
       </div>
@@ -276,7 +294,7 @@ function Services() {
     <section id="services" className="bg-primary py-9 md:py-12">
       <div className="mx-auto max-w-7xl px-6">
         <Heading dark n="05" eyebrow="Services Offered" title={<>Personal coaching & <em className="text-accent">care at home</em>.</>} />
-        <div className="grid gap-10 lg:grid-cols-2">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <Col sub="A · Heal with Dr. Amruta" title="Personal Health Coaching" items={coaching} />
           <Col sub="B · QuickAid Healthcare" title="Home Healthcare Services" items={homecare} />
         </div>
