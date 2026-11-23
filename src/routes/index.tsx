@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useInView, animate, AnimatePresence, MotionConfig, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode, type FormEvent } from "react";
-import { ArrowUpRight, HeartPulse, Leaf, Stethoscope, HeartHandshake, Activity, Apple, Baby, House, Users, BookOpen, ShieldCheck, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, HeartPulse, Leaf, Stethoscope, HeartHandshake, Activity, Apple, Baby, House, Users, BookOpen, ShieldCheck, Award, MessageCircle, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroVisual from "@/assets/medical-hero.png.asset.json";
 import wellnessVisual from "@/assets/medical-wellness.png.asset.json";
 import logo from "@/assets/amruta-logo.webp.asset.json";
 import still from "@/assets/wellness-still.jpg";
 import {
-  about, achievements, affiliations, coaching, contact, experience, expertise, homecare, projects, values,
+  about, achievements, affiliations, appointmentWhatsAppUrl, coaching, contact, experience, expertise, homecare, projects, values,
 } from "@/components/site/content";
 
 export const Route = createFileRoute("/")({
@@ -276,24 +276,25 @@ function Projects() {
 function Services() {
   const Col = ({ title, sub, items }: { title: string; sub: string; items: { t: string; d: string }[] }) => (
     <div>
-      <Reveal><div className="flex items-center gap-3"><AnimatedCareIcon dark icon={title === "Personal Health Coaching" ? HeartPulse : House} /><p className="eyebrow">{sub}</p></div><h3 className="mt-3 text-3xl text-primary-foreground">{title}</h3></Reveal>
-      <div className="mt-5 space-y-4">
+      <Reveal><div className="flex items-center gap-3"><AnimatedCareIcon icon={title === "Personal Health Coaching" ? HeartPulse : House} /><p className="eyebrow">{sub}</p></div><h3 className="mt-3 text-3xl text-primary">{title}</h3></Reveal>
+      <div className="mt-5 space-y-3">
         {items.map((s, i) => (
-          <Reveal key={s.t} delay={(i % 3) * 0.08} className="service-row group relative border-t border-accent/30 py-4">
+          <Reveal key={s.t} delay={(i % 3) * 0.08} className="service-row bright-service group relative rounded-md border border-border bg-background p-5">
             <div className="flex items-start gap-4">
               <span aria-hidden="true" className="service-marker mt-1.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent/40 text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
-              <div className="min-w-0"><h4 className="text-2xl text-accent transition-transform duration-500 group-hover:translate-x-1">{s.t}</h4>
-              <p className="mt-2 leading-relaxed text-on-dark-muted">{s.d}</p></div>
+              <div className="min-w-0"><h4 className="text-xl text-primary transition-transform duration-500 group-hover:translate-x-1">{s.t}</h4>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.d}</p></div>
             </div>
           </Reveal>
         ))}
       </div>
+      <Button asChild variant="link" className="mt-3 px-0"><a href="#contact">Enquire about care <ArrowUpRight /></a></Button>
     </div>
   );
   return (
-    <section id="services" className="bg-primary py-9 md:py-12">
+    <section id="services" className="bright-services py-9 md:py-12">
       <div className="mx-auto max-w-7xl px-6">
-        <Heading dark n="05" eyebrow="Services Offered" title={<>Personal coaching & <em className="text-accent">care at home</em>.</>} />
+        <Heading n="05" eyebrow="Services Offered" title={<>Personal coaching & <em className="text-care-green">care at home</em>.</>} />
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <Col sub="A · Heal with Dr. Amruta" title="Personal Health Coaching" items={coaching} />
           <Col sub="B · QuickAid Healthcare" title="Home Healthcare Services" items={homecare} />
@@ -308,16 +309,16 @@ function Recognition() {
     <section id="recognition" className="py-9 md:py-12">
       <div className="mx-auto max-w-7xl px-6">
         <Heading n="06" eyebrow="Achievements & Affiliations" title={<>Recognition through <em className="text-accent">service</em>.</>} />
-        <div className="grid gap-px bg-border md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {achievements.map((a, i) => (
-            <Reveal key={a.t} delay={(i % 3) * 0.08} className="bg-background p-6 transition-all duration-500 hover:bg-card">
-              <span className="font-display text-5xl italic text-accent/70">{String(i + 1).padStart(2, "0")}</span>
-              <h3 className="mt-6 text-2xl text-primary">{a.t}</h3>
+            <Reveal key={a.t} delay={(i % 3) * 0.08} className="recognition-tile rounded-md border border-border p-6">
+              <div className="flex items-center justify-between"><AnimatedCareIcon icon={i === 2 ? BookOpen : Award} delay={i * 0.3} /><span className="font-display text-3xl italic text-accent/70">{String(i + 1).padStart(2, "0")}</span></div>
+              <h3 className="mt-4 text-2xl text-primary">{a.t}</h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">{a.d}</p>
             </Reveal>
           ))}
-          <Reveal className="bg-card p-6">
-            <p className="eyebrow">Affiliations</p>
+          <Reveal className="affiliation-tile rounded-md border border-care-green/30 p-6">
+            <div className="flex items-center gap-3"><Users className="h-6 w-6 text-care-green" /><p className="eyebrow">Affiliations</p></div>
             {affiliations.map((a) => (
               <div key={a.t} className="mt-6 border-t border-accent/40 pt-4">
                 <h3 className="text-2xl text-primary">{a.t}</h3>
@@ -333,14 +334,14 @@ function Recognition() {
 
 function Approach() {
   return (
-    <section className="relative overflow-hidden bg-burgundy-deep py-10 md:py-14">
+    <section id="approach" className="relative overflow-hidden bg-burgundy-deep py-10 md:py-14">
       <img src={still} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-15" />
       <div className="relative mx-auto max-w-7xl px-6">
         <Heading dark n="07" eyebrow="My Approach to Care" title={<>Good healthcare begins with <em className="text-accent">understanding people</em>.</>} />
         <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
           {values.map((v, i) => (
-            <Reveal key={v.t} delay={i * 0.1}>
-              <span className="block h-10 w-10 rotate-45 border border-accent" />
+            <Reveal key={v.t} delay={i * 0.1} className="approach-step relative border-t border-accent/35 pt-6">
+              <div className="flex items-center justify-between"><AnimatedCareIcon dark icon={[HeartHandshake, BookOpen, Leaf, ShieldCheck][i] ?? HeartPulse} delay={i * 0.4} /><span className="font-display text-4xl italic text-accent/50">0{i + 1}</span></div>
               <h3 className="mt-5 text-3xl text-primary-foreground">{v.t}</h3>
               <p className="mt-3 leading-relaxed text-on-dark-muted">{v.d}</p>
             </Reveal>
@@ -385,13 +386,10 @@ function Gallery() {
 }
 
 function Contact() {
-  const [sent, setSent] = useState(false);
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const msg = `Hello Dr. Amruta, I'd like to book an appointment.\nName: ${f.get("name")}\nPhone: ${f.get("phone")}\nEmail: ${f.get("email")}\nPreferred date: ${f.get("date")}\nMessage: ${f.get("message")}`;
-    window.open(`https://wa.me/${contact.whatsappDigits}?text=${encodeURIComponent(msg)}`, "_blank");
-    setSent(true);
+    window.location.assign(appointmentWhatsAppUrl({ name: String(f.get("name") ?? ""), phone: String(f.get("phone") ?? ""), email: String(f.get("email") ?? ""), date: String(f.get("date") ?? ""), message: String(f.get("message") ?? "") }));
   };
   const field = "w-full border-b border-accent/40 bg-transparent py-3 text-primary-foreground placeholder:text-on-dark-muted/70 focus:border-accent focus:outline-none";
   return (
@@ -421,8 +419,7 @@ function Contact() {
             </div>
             <input name="date" type="date" aria-label="Preferred date" className={field} />
             <textarea name="message" rows={4} placeholder="How can I help?" className={field} />
-            <button className="w-full bg-accent py-4 text-xs uppercase tracking-[0.22em] text-primary transition hover:bg-primary-foreground">Send via WhatsApp</button>
-            {sent && <p className="text-sm text-accent">Opening WhatsApp with your enquiry…</p>}
+            <Button type="submit" className="h-12 w-full bg-accent text-primary hover:bg-primary-foreground"><MessageCircle /> Send via WhatsApp</Button>
           </form>
         </Reveal>
       </div>
@@ -434,7 +431,7 @@ function Footer() {
   return (
     <footer className="bg-burgundy-deep py-7 text-on-dark-muted">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-sm md:flex-row">
-        <p className="font-display text-2xl text-primary-foreground">Dr. Amruta <span className="text-accent">Jagadale</span>, MBBS</p>
+        <div className="max-w-2xl text-center md:text-left"><p className="font-display text-2xl text-primary-foreground">Dr. Amruta <span className="text-accent">Jagadale</span>, MBBS</p><p className="mt-3 font-display text-lg italic leading-relaxed text-on-dark-muted">“Compassion in Care, Excellence in Medicine, and a Commitment to Better Lives.”</p></div>
         <p>© {new Date().getFullYear()} · Anjananagar, Bengaluru</p>
       </div>
     </footer>

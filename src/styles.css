@@ -212,3 +212,25 @@ section[id] { scroll-margin-top: 88px; }
 .service-row:hover .service-marker { background: var(--accent); color: var(--primary); transform: rotate(8deg); }
 .service-row::after { content: ""; position: absolute; top: -1px; left: 0; width: 100%; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 650ms ease; }
 .service-row:hover::after { transform: scaleX(1); }
+
+:root {
+  --care-green: oklch(0.46 0.09 165);
+  --care-mint: oklch(0.965 0.025 165);
+  --care-rose: oklch(0.97 0.022 15);
+}
+@theme inline {
+  --color-care-green: var(--care-green);
+  --color-care-mint: var(--care-mint);
+  --color-care-rose: var(--care-rose);
+}
+.bright-services { background: var(--care-mint); }
+.bright-services > div > div > div:nth-child(2) .care-icon { color: var(--care-green); background: var(--background); }
+.bright-service { border-left: 3px solid var(--accent); transition: transform 400ms ease, box-shadow 400ms ease; }
+.bright-services > div > div > div:nth-child(2) .bright-service { border-left-color: var(--care-green); }
+.bright-service:hover { transform: translateY(-3px); box-shadow: var(--image-shadow); }
+.recognition-tile { background: var(--care-rose); transition: transform 500ms ease, box-shadow 500ms ease; }
+.recognition-tile:nth-child(even) { background: var(--background); }
+.recognition-tile:hover { transform: translateY(-4px); box-shadow: var(--image-shadow); }
+.affiliation-tile { background: var(--care-mint); }
+.approach-step { transition: border-color 400ms ease; }
+.approach-step:hover { border-color: var(--accent); }

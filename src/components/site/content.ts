@@ -5,6 +5,11 @@ export const contact = {
   location: "Anjananagar, Bengaluru, Karnataka, India",
 };
 
+export function appointmentWhatsAppUrl(fields: { name: string; phone: string; email: string; date: string; message: string }) {
+  const message = `Hello Dr. Amruta, I'd like to book an appointment.\nName: ${fields.name}\nPhone: ${fields.phone}\nEmail: ${fields.email}\nPreferred date: ${fields.date}\nMessage: ${fields.message}`;
+  return `https://wa.me/${contact.whatsappDigits}?text=${encodeURIComponent(message)}`;
+}
+
 export const about = [
   "I grew up in Vijayapura, North Karnataka, and built my professional life in Bengaluru. With nearly two decades of experience in medicine, I have worked with people at different stages of life and across a range of healthcare needs.",
   "Some people seek guidance to understand changes in their weight, energy levels or overall health. Others are families looking for support in caring for an elderly or unwell loved one at home. In both situations, I believe people deserve clear information, compassionate guidance and practical next steps.",

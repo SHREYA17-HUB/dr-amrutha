@@ -31,3 +31,4 @@ use the editor.
 
 ## Presentation
 - Use CDN asset pointers for generated medical illustrations and keep decorative movement under the user’s reduced-motion setting; this preserves lightweight delivery and accessibility.
+- Build appointment WhatsApp URLs with the shared content helper and navigate in the same tab on submission; this keeps the recipient and message formatting consistent without popup blockers.
